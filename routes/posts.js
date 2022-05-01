@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Post = require("../models/posts");
+const User = require("../models/users");
 
 const handleSuccess = require("../service/handleSuccess");
 const handleError = require("../service/handleError");
@@ -12,7 +13,22 @@ let posts = [];
 /* GET users listing. */
 router.get("/", async (req, res, next) => {
   try {
-    posts = await Post.find();
+    const timeSort = req.query.timeSort === "asc" ? "createdAt" : "-createdAt";
+    const q =
+      req.query.q !== undefined
+        ? {
+            $or: [
+              { content: new RegExp(req.query.q) },
+              { user: { name: new RegExp(req.query.q) } },
+            ],
+          }
+        : {};
+    posts = await Post.find(q)
+      .populate({
+        path: "user",
+        select: "name photo ",
+      })
+      .sort(timeSort);
     handleSuccess(res, posts);
   } catch (error) {
     handleError(res, error.message);

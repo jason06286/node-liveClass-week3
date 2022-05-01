@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema(
+const PostSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "請輸入貼文標題"],
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "user",
+      required: [true, "user ID 未填寫"],
     },
     tags: {
-      type: Array,
-      required: [true, "請輸入標籤。例如:['謎因','遊記']"],
+      type: [String],
+      default: ["謎因", "遊記"],
     },
     image: {
-      type: String,
-      required: [true, "請輸入圖片路徑"],
+      type: [String],
+      default: [],
     },
     content: {
       type: String,
@@ -21,7 +22,6 @@ const postSchema = new mongoose.Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      select: false,
     },
     likes: {
       type: Number,
@@ -38,10 +38,8 @@ const postSchema = new mongoose.Schema(
   },
   {
     versionKey: false,
-    collection: "posts",
   }
 );
-
-const Post = mongoose.model("", postSchema);
+const Post = mongoose.model("post", PostSchema);
 
 module.exports = Post;
