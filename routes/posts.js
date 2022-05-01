@@ -15,14 +15,7 @@ router.get("/", async (req, res, next) => {
   try {
     const timeSort = req.query.timeSort === "asc" ? "createdAt" : "-createdAt";
     const q =
-      req.query.q !== undefined
-        ? {
-            $or: [
-              { content: new RegExp(req.query.q) },
-              { user: { name: new RegExp(req.query.q) } },
-            ],
-          }
-        : {};
+      req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
     posts = await Post.find(q)
       .populate({
         path: "user",
