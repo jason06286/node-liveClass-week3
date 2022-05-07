@@ -1,17 +1,33 @@
-const express = require("express");
-
-const errorMessage = {
-  4001: "無此路由",
-  4002: "資料格式錯誤!",
-  4003: '欄位未填寫正確!請用{"title":"XXX"}',
-  4004: "無此ID",
-};
-
-const handleError = (res, error) => {
-  res.status(400).json({
-    success: false,
-    message: errorMessage[error] !== undefined ? errorMessage[error] : error,
+const resErrorDev = (err, res) => {
+  res.status(err.statusCode).send({
+    message: err.message,
+    error: err,
+    stack: err.stack,
   });
 };
+const resErrorProd = (err, res) => {
+  if (err.isOperational) {
+    res.status(err.statusCode).send({
+      message: err.message,
+    });
+  } else {
+    console.error("出現重大錯誤");
+    res.status(500).send({
+      status: "error",
+      message: "系統錯誤，請洽系統管理員!!",
+    });
+  }
+};
 
-module.exports = handleError;
+const appError = (httpStatus, errMessage, next) => {
+  const error = new Error(errMessage);
+  error.statusCode = httpStatus;
+  error.isOperational = true;
+  next(error);
+};
+
+module.exports = {
+  resErrorDev,
+  resErrorProd,
+  appError,
+};

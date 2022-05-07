@@ -1,14 +1,19 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const cors = require("cors");
 
-var indexRouter = require("./routes/index");
-var postsRouter = require("./routes/posts");
+const indexRouter = require("./routes/index");
+const postsRouter = require("./routes/posts");
 
-var app = express();
+const {
+  appError,
+  resErrorDev,
+  resErrorProd,
+} = require("./service/handleError");
+
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -24,20 +29,26 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/posts", postsRouter);
 
+require("./unpredictable");
+
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.use((req, res, next) => {
+  appError(404, "無此路由，請回首頁!!", next);
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+  if (process.env.NODE_ENV === "dev") {
+    return resErrorDev(err, res);
+  }
+
+  if (err.name === "ValidationError") {
+    err.isOperational = true;
+    return resErrorProd(err, res);
+  }
+  resErrorProd(err, res);
 });
 
 module.exports = app;

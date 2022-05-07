@@ -4,15 +4,18 @@ const router = express.Router();
 const Post = require("../models/posts");
 const User = require("../models/users");
 
+const { appError } = require("../service/handleError");
+const { checkReqParamsId } = require("../middleware/index");
 const handleSuccess = require("../service/handleSuccess");
-const handleError = require("../service/handleError");
+const handleErrorAsync = require("../service/handleErrorAsync");
 
 require("../connections");
 
 let posts = [];
 /* GET users listing. */
-router.get("/", async (req, res, next) => {
-  try {
+router.get(
+  "/",
+  handleErrorAsync(async (req, res, next) => {
     const timeSort = req.query.timeSort === "asc" ? "createdAt" : "-createdAt";
     const q =
       req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
@@ -23,48 +26,51 @@ router.get("/", async (req, res, next) => {
       })
       .sort(timeSort);
     handleSuccess(res, posts);
-  } catch (error) {
-    handleError(res, error.message);
-  }
-});
+  })
+);
 
-router.post("/", async (req, res, next) => {
-  const post = req.body;
-  try {
+router.post(
+  "/",
+  handleErrorAsync(async (req, res, next) => {
+    const post = req.body;
     if (post !== undefined) {
       await Post.create(post);
       posts = await Post.find();
       handleSuccess(res, posts);
     } else {
-      handleError(res, 4003);
+      appError(400, "請填寫內容", next);
     }
-  } catch (error) {
-    handleError(res, error.message);
-  }
-});
+  })
+);
 
-router.delete("/", async (req, res, next) => {
-  await Post.deleteMany({});
-  handleSuccess(res, []);
-});
+router.delete(
+  "/",
+  handleErrorAsync(async (req, res, next) => {
+    await Post.deleteMany({});
+    handleSuccess(res, []);
+  })
+);
 
-router.delete("/:id", async (req, res, next) => {
-  try {
+router.delete(
+  "/:id",
+  handleErrorAsync(checkReqParamsId),
+  handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
+    console.log(id);
     const isFinish = await Post.findByIdAndDelete(id);
     if (isFinish) {
       posts = await Post.find();
       handleSuccess(res, posts);
     } else {
-      handleError(res, 4004);
+      appError(400, "查無此ID", next);
     }
-  } catch (error) {
-    handleError(res, error.message);
-  }
-});
+  })
+);
 
-router.patch("/:id", async (req, res, next) => {
-  try {
+router.patch(
+  "/:id",
+  handleErrorAsync(checkReqParamsId),
+  handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = req.body;
     const isFinish = await Post.findByIdAndUpdate(id, post);
@@ -72,11 +78,9 @@ router.patch("/:id", async (req, res, next) => {
       posts = await Post.find();
       handleSuccess(res, posts);
     } else {
-      handleError(res, 4004);
+      appError(400, "查無此ID", next);
     }
-  } catch (error) {
-    handleError(res, error.message);
-  }
-});
+  })
+);
 
 module.exports = router;
