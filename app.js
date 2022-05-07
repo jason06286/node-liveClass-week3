@@ -7,6 +7,9 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const postsRouter = require("./routes/posts");
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerSetting = require("./config/swagger");
+
 const {
   appError,
   resErrorDev,
@@ -30,6 +33,8 @@ app.use("/", indexRouter);
 app.use("/posts", postsRouter);
 
 require("./unpredictable");
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSetting));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
