@@ -1,7 +1,9 @@
 const express = require("express");
 
-const handleSuccess = (res, data) => {
-  res.status(200).send({ success: true, data });
+const handleSuccess = (res, httpStatus, data, message) => {
+  data
+    ? res.status(httpStatus).send({ data })
+    : res.status(httpStatus).send({ message });
 };
 
 module.exports = handleSuccess;

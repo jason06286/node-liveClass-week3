@@ -1,0 +1,573 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "MetaWall API",
+    "description": "user post crud",
+    "version": "1.0.0"
+  },
+  "host": "protected-refuge-81301.herokuapp.com",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "headers",
+      "name": "authorization",
+      "description": "請加上 API Token"
+    }
+  },
+  "paths": {
+    "/check": {
+      "get": {
+        "tags": [
+          "Check"
+        ],
+        "summary": "登入權限測試",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "未授權"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/sign_up": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "使用者註冊",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊成功"
+          },
+          "422": {
+            "description": "註冊失敗"
+          }
+        }
+      }
+    },
+    "/users/sign_in": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "使用者登入",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "登入成功"
+          },
+          "401": {
+            "description": "登入失敗"
+          }
+        }
+      }
+    },
+    "/users/sign_out": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "使用者登出",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "登出成功"
+          },
+          "401": {
+            "description": "登出失敗"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "取得個人資料",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "個人資料"
+          },
+          "401": {
+            "description": "沒有權限"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "更新個人資料",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "更新後的個人資料"
+          },
+          "422": {
+            "description": "資料填寫錯誤"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/updatePassword": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "重設使用者密碼",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "password": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "更新後的個人資料"
+          },
+          "422": {
+            "description": "資料填寫錯誤"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/posts": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "取得所有貼文內容",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "timeSort",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "所有貼文內容"
+          },
+          "401": {
+            "description": "未授權"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "刪除所有貼文",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除所有貼文成功"
+          },
+          "401": {
+            "description": "沒有權限"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/profile": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "取得所有個人貼文",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "timeSort",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "所有個人貼文"
+          },
+          "401": {
+            "description": "未授權"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/post": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "新增貼文",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "string",
+                      "example": "userId"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "新增的貼文"
+          },
+          "422": {
+            "description": "資料填寫錯誤"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/post/{id}": {
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "刪除單筆貼文",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除單筆貼文成功"
+          },
+          "401": {
+            "description": "沒有權限"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "編輯單筆貼文",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "編輯後的貼文"
+          },
+          "422": {
+            "description": "資料填寫錯誤"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/upload": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "上傳圖片",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "singleFile",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Image File"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "圖片Url"
+          },
+          "400": {
+            "description": "檔案錯誤"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    }
+  }
+}

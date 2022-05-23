@@ -5,7 +5,7 @@
 
 ## Swagger 文件
 
-連結：[https://protected-refuge-81301.herokuapp.com/api-docs](https://protected-refuge-81301.herokuapp.com/api-docs)
+連結：[https://protected-refuge-81301.herokuapp.com/api-doc](https://protected-refuge-81301.herokuapp.com/api-doc)
 
 ## demo
 

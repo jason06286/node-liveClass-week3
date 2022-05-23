@@ -7,9 +7,15 @@ const resErrorDev = (err, res) => {
 };
 const resErrorProd = (err, res) => {
   if (err.isOperational) {
-    res.status(err.statusCode).send({
-      message: err.message,
-    });
+    if (err.message) {
+      res.status(err.statusCode).send({
+        message: err.message,
+      });
+    } else {
+      res.status(err.statusCode).send({
+        message: err.err,
+      });
+    }
   } else {
     console.error("出現重大錯誤");
     res.status(500).send({
@@ -20,9 +26,18 @@ const resErrorProd = (err, res) => {
 };
 
 const appError = (httpStatus, errMessage, next) => {
-  const error = new Error(errMessage);
+  let error;
+  console.log("errMessage :>> ", errMessage);
+  console.log("typeof errMessage :>> ", typeof errMessage);
+  if (typeof errMessage === "string") {
+    error = new Error(errMessage);
+  } else {
+    error = new Error();
+    error.err = errMessage;
+  }
   error.statusCode = httpStatus;
   error.isOperational = true;
+  console.log("error :>> ", error);
   next(error);
 };
 
