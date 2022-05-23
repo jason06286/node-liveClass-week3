@@ -13,4 +13,4 @@
 
 ## Postman_collection
 
-連結：[https://github.com/jason06286/node-liveClass-week3/blob/main/posts-heroku%20express.postman_collection.json](https://github.com/jason06286/node-liveClass-week3/blob/main/posts-heroku%20express.postman_collection.json)
+連結：[https://github.com/jason06286/node-liveClass-week3/blob/main/posts-heroku-express.postman_collection.json](https://github.com/jason06286/node-liveClass-week3/blob/main/posts-heroku-express.postman_collection.json)
