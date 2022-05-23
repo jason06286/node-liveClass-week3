@@ -54,9 +54,19 @@ router.get(
     const timeSort = req.query.timeSort === "asc" ? "createdAt" : "-createdAt";
     const token = req.headers.authorization.split(" ")[1];
     const currentUser = await decoding(token);
-    const posts = await Post.find({ id: currentUser.id }).sort(timeSort);
+    const posts = await Post.find({
+      user: {
+        _id: currentUser.id,
+      },
+    }).sort(timeSort);
+    let data;
+    if (!posts) {
+      data = {};
+    } else {
+      data = posts;
+    }
 
-    handleSuccess(res, 200, posts);
+    handleSuccess(res, 200, data);
   })
 );
 
@@ -72,7 +82,7 @@ router.post(
             type: "object",
             required: true,
             description: "資料格式",
-            schema: { "user": {
+            schema: { "post": {
                             "user": "userId",
                             "content": "string"
                             } }
@@ -103,7 +113,7 @@ router.delete(
     /**
       * #swagger.tags = ['Posts']
         #swagger.security = [{ "apiKeyAuth": [] }]
-         * #swagger.summary = '刪除所有貼文'
+         * #swagger.summary = '刪除當前使用者所有貼文'
       * #swagger.responses[200] = {
           description: '刪除所有貼文成功',
         }
@@ -112,7 +122,13 @@ router.delete(
         }
       }
     */
-    await Post.deleteMany({});
+    const token = req.headers.authorization.split(" ")[1];
+    const currentUser = await decoding(token);
+    const response = await Post.deleteMany({
+      user: {
+        _id: currentUser.id,
+      },
+    });
     handleSuccess(res, 200, null, "刪除所有貼文成功!!");
   })
 );
@@ -155,7 +171,7 @@ router.patch(
             type: "object",
             required: true,
             description: "資料格式",
-            schema: { "user": {
+            schema: { "post": {
                             "content": "string",
                             } }
             }

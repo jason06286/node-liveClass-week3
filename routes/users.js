@@ -90,7 +90,6 @@ router.post(
     if (!validator.isEmail(email)) {
       errMessage.email = "電子信箱 格式有誤";
     }
-    console.log("errMessage :>> ", errMessage);
     if (Object.keys(errMessage).length) {
       return appError(422, errMessage, next);
     }
@@ -154,7 +153,6 @@ router.post(
         }
     }
      */
-    console.log("req.body.user :>> ", req.body.user);
     if (!req.body.user) {
       return appError(401, "資料格式錯誤", next);
     }
@@ -166,13 +164,11 @@ router.post(
       return appError(401, "電子信箱 格式有誤", next);
     }
     const user = await User.findOne({ email }).select("+password");
-    console.log("user :>> ", user);
     if (!user) {
       return appError(401, "此電子信箱尚未註冊", next);
     }
 
     const auth = await bcrypt.compare(password, user.password);
-    console.log("auth :>> ", auth);
     if (!auth) {
       return appError(401, "密碼有誤，請重新輸入", next);
     }

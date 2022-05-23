@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "61b660d9-efac-4340-b6aa-cf6483338a6e",
+		"name": "posts-heroku-express",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17245790"
+	},
+	"item": [
+		{
+			"name": "貼文CRUD(需要登入)",
+			"item": [
+				{
+					"name": "取得所有貼文",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/posts?timeSort=asc",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "timeSort",
+									"value": "asc"
+								},
+								{
+									"key": "hellowrd",
+									"value": "123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人所有貼文",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/posts/profile?timeSort=asc",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "timeSort",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"post\":{\r\n    \"user\":\"626e2e6085751ebc358131fc\",\r\n    \"tags\":[\"謎因\",\"遊記\"],\r\n    \"image\":[\"https://picsum.photos/200\",\"https://picsum.photos/id/237/200\"],\r\n    \"content\":\" 我一定要成為很棒棒的國王 666!\"\r\n }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/post",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除當前使用者所有貼文",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/posts",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除單筆貼文",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/post/628bcede3c857ef8f11e75eb",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"628bcede3c857ef8f11e75eb"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "編輯單筆貼文",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"post\":{\r\n    \"content\":\" 我一定要成為很棒棒的國王 888!\"\r\n }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/post/628bcede3c857ef8f11e75eb",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"post",
+								"628bcede3c857ef8f11e75eb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "使用者(不需驗證)",
+			"item": [
+				{
+					"name": "使用者註冊",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n     \"user\":{\r\n        \"name\":\"James\",\r\n        \"email\":\"789@gmail.com.tw\",\r\n        \"password\":\"12345678\"\r\n     }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/users/sign_up",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "使用者登入",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n     \"user\":{\r\n        \"email\":\"789@gmail.com.tw\",\r\n        \"password\":\"12345678\"\r\n     }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/users/sign_in",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "使用者登出",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTE4MSwiZXhwIjoxNjUzOTMzOTgxfQ.TS-S_V_8Ai0m8NixNn7xh022NLerQZmIKn2rlqW9Vjk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/users/sign_out",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"sign_out"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "使用者(需驗證)",
+			"item": [
+				{
+					"name": "登入權限測試",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTE4MSwiZXhwIjoxNjUzOTMzOTgxfQ.TS-S_V_8Ai0m8NixNn7xh022NLerQZmIKn2rlqW9Vjk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/check",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人資料",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTE4MSwiZXhwIjoxNjUzOTMzOTgxfQ.TS-S_V_8Ai0m8NixNn7xh022NLerQZmIKn2rlqW9Vjk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/users/profile",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "使用者重設密碼",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTE4MSwiZXhwIjoxNjUzOTMzOTgxfQ.TS-S_V_8Ai0m8NixNn7xh022NLerQZmIKn2rlqW9Vjk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"password\":\"123456789\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/users/updatePassword",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新使用者資料",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":{\r\n        \"name\":\"Tracy McGrady\",\r\n        \"photo\": \"https://i.imgur.com/4mcK7a5.png\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/users/profile",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上傳圖片",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGJjY2Y0M2M4NTdlZjhmMTFlNzViYiIsImlhdCI6MTY1MzMyOTI3MywiZXhwIjoxNjUzOTM0MDczfQ.iT0dOiWabQVSPiTaIHjf_uG4xPR6QPDx85s4Ti-XybI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/USER/Downloads/1651412081949.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://protected-refuge-81301.herokuapp.com/upload",
+							"protocol": "https",
+							"host": [
+								"protected-refuge-81301",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -331,7 +331,7 @@
         "tags": [
           "Posts"
         ],
-        "summary": "刪除所有貼文",
+        "summary": "刪除當前使用者所有貼文",
         "description": "",
         "parameters": [
           {
@@ -410,7 +410,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user": {
+                "post": {
                   "type": "object",
                   "properties": {
                     "user": {
@@ -502,7 +502,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user": {
+                "post": {
                   "type": "object",
                   "properties": {
                     "content": {
